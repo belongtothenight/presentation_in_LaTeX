@@ -1,0 +1,144 @@
+% document example:         https://www.overleaf.com/project/66dc4634e01fa87bf16cef97
+% which is from tutorial:   https://www.overleaf.com/learn/latex/Beamer
+
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usepackage{nth} % to display nth in text
+
+\usepackage{listings} % to have lstlisting environment
+
+\usepackage{caption} % to remove prefix of caption, ex: "Figure:"
+
+\usepackage{multirow}
+
+\usepackage{romannum}
+
+% https://tw.mirrors.cicku.me/ctan/macros/latex/contrib/minted/minted.pdf
+% require to activate local python virtual environment with Pygments installed
+% require "-shell-escape" option enabled when compiling TeX
+\usepackage{minted} % for minted syntax highlighting environment
+\usetheme{Madrid}
+\usecolortheme{default} % default, beaver
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+\tikzstyle{block} = [rectangle,
+rounded corners, 
+minimum width=3cm, 
+minimum height=1cm,
+text centered,]
+%draw=black, 
+%fill=red!30]
+\tikzstyle{path} = [rectangle,
+rounded corners, 
+minimum width=3cm, 
+minimum height=1cm,
+align=center,]
+%text width=3cm,
+\tikzstyle{miniblock} = [rectangle,
+rounded corners, 
+minimum width=3cm, 
+minimum height=0.5cm,
+text centered,]
+\tikzstyle{minidecision} = [diamond,
+minimum width=3cm,
+minimum height=0.5cm,
+text centered,]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+%------------------------------------------------------------
+%This block of code defines the information to appear in the
+%Title page
+\title[C project] %optional
+{C project development and management on Linux}
+
+\subtitle{A general introduction and \href{https://github.com/belongtothenight/autotools_init_setup}{\underline{project template}}}
+
+\author[\href{https://github.com/belongtothenight/}{\underline{belongtothenight}}] % (optional)
+{Da-Chuan Chen}
+
+\date[20240907] % (optional)
+{April \nth{7}, 2021}
+
+%\logo{\includegraphics[height=1cm]{overleaf-logo}}
+
+%End of title page configuration block
+%------------------------------------------------------------
+
+
+
+%------------------------------------------------------------
+%The next block of commands puts the table of contents at the 
+%beginning of each section and highlights the current section:
+
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+%------------------------------------------------------------
+
+\begin{document}
+
+%The next statement creates the title page.
+\frame{\titlepage}
+
+%---------------------------------------------------------
+%This block of code is for the table of contents after
+%the title page
+\begin{frame}
+\frametitle{Table of Contents}
+\tableofcontents
+\end{frame}
+%---------------------------------------------------------
+
+% - c example project
+% - dev pipeline
+%   1. c
+%   2. compiler (can be expand into generating different stuff like man page)
+%       - gcc (with example)
+%       - g++
+%       - clang
+%       - llvm
+%   3. various formats (for different purpose, static lib, dynamic lib, archive)
+%   4. different install path for execution, linking...
+% - build systems
+%   - why?
+%       - dependency checks and counter-measure (exist, version) (pkg-config)
+%       - multiplatform support, portability (config.h, ./configure)
+%       - automatically generate makefile
+%       - version control (software-1.0.1)
+%       - standardized build process
+%       - standardized convensions (--prefix, --exec-prefix, /usr/bin, /usr/src, /usr/lib)
+%       - incremental builds (only build files changed)
+%       - library management (libtool)
+%       - test after compilation
+%   - make (automation tool)
+%   - Autotools - make (a lot of GNU libraries) % https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/6/html/developer_guide/cmd-autotools-upstreamdocs#cmd-autotools-upstreamdocs
+%       - commands (./bootstrap.sh)
+%   - CMake - make (a lot of C++ projects)
+%       - commands
+%   - Meson - ninja (a lot of GNOME)
+%       - commands
+%   - Yocto (out of bound)
+%   - Buildroot (out of bound)
+% - Autotools demo
+%   - generate configure files
+%   - prep for distribution
+%       - multi-command
+%       - single-command
+%   - compile and installation
+% - resolve issue when compiling from source
+%   - distinguish build system and corresponding build commands
+%   - dependency
+
+\input{c_proj.tex}
+\input{dev_pipe.tex}
+\input{build_sys.tex}
+\input{autotools.tex}
+\input{issue.tex}
+
+\end{document}
